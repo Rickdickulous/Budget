@@ -2,6 +2,10 @@
 Clean and Powerful program to manage Monthly, Per-Paycheck, and Financial Goals.
 """
 from datetime import datetime, timedelta
+import os
+
+PAYCHECK_AMOUNT = 1700
+file = 'thisPaycheckBudget.csv'
 
 
 def main():
@@ -14,6 +18,9 @@ def main():
 
    monthlyBills = monthlyBillsThisPaycheck(paycheckDate_datetime, nextPaycheck_datetime)
    printToFile(monthlyBills, paycheckDate_datetime, nextPaycheck_datetime)
+
+   # open the completed file
+   os.startfile(file)
 
 
 class Bill(object):
@@ -124,20 +131,34 @@ def printToFile(monthlyBills, paycheckDate, nextPaycheck):
    :param nextPaycheck: next paycheck date (datetime).
    :return: None
    '''
-   with open('thisPaycheckBudget.csv', 'a') as f:  # Note: 'a' - append to file. 'w' - overwrite.
+   with open(file, 'w') as f:  # Note: 'a' - append to file. 'w' - overwrite.
+      # If file is not empty, add 2 returns for formatting
+      firstLine = True
+      if os.stat("thisPaycheckBudget.csv").st_size > 10:
+         firstLine = False
+      if not firstLine:
+         print '\n\n'
 
-      # print paycheck dates
+      # print paycheck dates and amount
       paycheckDate_string = datetimeToString(paycheckDate)
       nextPaycheck_string = datetimeToString(nextPaycheck)
-      row1 = ['\n\nPaycheck Dates:', paycheckDate_string, nextPaycheck_string]
-      f.write(','.join(row1) + '\n\n')
+      row1 = ['Paycheck Dates:', paycheckDate_string, nextPaycheck_string]
+      f.write(','.join(row1) + '\n')
+      f.write('Paycheck Amount,' + str(PAYCHECK_AMOUNT) + '\n\n')
+
+      # print bills and credit cards summary
+      f.write('Total Bills,=SUM(B11:B50)\n')
+      f.write('My Credit Card Balance\n')
+      f.write('Amazon Credit Card Balance (Enter full amount)\n\n')
+      f.write('Leftover from paycheck (bills),=B2-B4\n')
+      f.write('Leftover from paycheck (bills + credit card + 1/2 Amazon),=B2-B4-B5-(B6*.5)\n\n')
 
       # print per paycheck bills
-      f.write('Per Paycheck Bills,Cost,,Notes\n')
+      f.write('Per Paycheck Bills,Cost,Notes\n')
       for bill in perPaycheckBills:
          bill.printInfo(f)
 
-      f.write('\nMonthly Bills,Cost,Due Date\n')
+      f.write('\nMonthly Bills,Cost,Due Date,Notes\n')
 
       # print monthly bills
       for bill in monthlyBills:
