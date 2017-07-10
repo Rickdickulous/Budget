@@ -150,8 +150,8 @@ def printToFile(monthlyBills, paycheckDate, nextPaycheck):
       f.write('Total Bills,=SUM(B11:B50)\n')
       f.write('My Credit Card Balance\n')
       f.write('Amazon Credit Card Balance (Enter full amount)\n\n')
-      f.write('Leftover from paycheck (bills),=B2-B4\n')
-      f.write('Leftover from paycheck (bills + credit card + 1/2 Amazon),=B2-B4-B5-(B6*.5)\n\n')
+      f.write('Leftover from paycheck (bills + other),=B2-B4\n')
+      f.write('Leftover from paycheck (bills + cards + other),=B2-B4-B5-(B6*.5)\n\n')
 
       # print per paycheck bills
       f.write('Per Paycheck Bills,Cost,Notes\n')
@@ -163,6 +163,12 @@ def printToFile(monthlyBills, paycheckDate, nextPaycheck):
       # print monthly bills
       for bill in monthlyBills:
          bill.printInfo(f)
+
+      # other expenses this paycheck
+      f.write('\nOther Expenses This Paycheck\n')
+      f.write('Expense,Cost')
+
+
 
 
 if __name__ == '__main__':
