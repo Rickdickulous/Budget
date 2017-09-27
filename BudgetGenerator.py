@@ -3,10 +3,16 @@ Clean and Powerful program to manage Monthly, Per-Paycheck, and Financial Goals.
 """
 from datetime import datetime, timedelta
 import os
+import sys
+
+#########################
+# ENHANCEMENTS
+# 1. Use ordered dict for bills and print them out in order of date.
+# 2.
+#########################
 
 PAYCHECK_AMOUNT = 1700
 file = 'thisPaycheckBudget.csv'
-
 
 def main():
    input = raw_input("Enter paycheck date in mm/dd/yy format:")
@@ -65,21 +71,20 @@ class MonthlyBill(Bill):
 
 
 perPaycheckBills = [PaycheckBill(name='Car Payment', cost=138.8),
-                    PaycheckBill(name='Car Insurance', cost=25),
-                    PaycheckBill(name='Gifts', cost=40),
-                    PaycheckBill(name='Clothes', cost=40),
+                    PaycheckBill(name='Periodic Expenses', cost=125),
                     PaycheckBill(name='Savings', cost=150),
-                    PaycheckBill(name='Home Improvements', cost=0),
+                    # PaycheckBill(name='Home Improvements', cost=0),
                     PaycheckBill(name='Extra Student Loan Payment', cost=137.5),
                     # PaycheckBill(name='Savings', cost=138.8),
                     ]
 
 
-monthlyBills = [MonthlyBill(name='Taxes & Heat', cost=425, dayOfMonthDue=1),
-                MonthlyBill(name='Home Owners Insurance', cost=28, dayOfMonthDue=10),
+monthlyBills = [MonthlyBill(name='Taxes & Heat', cost=400, dayOfMonthDue=1),
+                MonthlyBill(name='Home Owners Insurance', cost=30, dayOfMonthDue=10),
                 MonthlyBill(name='Comcast', cost=80, dayOfMonthDue=14),
-                MonthlyBill(name='Netflix', cost=10, dayOfMonthDue=16),
-                MonthlyBill(name='Spotify', cost=15, dayOfMonthDue=26),
+                MonthlyBill(name='HBO', cost=15, dayOfMonthDue=25),
+                MonthlyBill(name='Headspace', cost=13, dayOfMonthDue=25),
+                MonthlyBill(name='Spotify', cost=15, dayOfMonthDue=20),
                 MonthlyBill(name='Nelnet', cost=360, dayOfMonthDue=28),
                 MonthlyBill(name='Verizon', cost=85, dayOfMonthDue=28),
                 MonthlyBill(name='Amica', cost=15, dayOfMonthDue=28),
@@ -143,32 +148,23 @@ def printToFile(monthlyBills, paycheckDate, nextPaycheck):
       paycheckDate_string = datetimeToString(paycheckDate)
       nextPaycheck_string = datetimeToString(nextPaycheck)
       row1 = ['Paycheck Dates:', paycheckDate_string, nextPaycheck_string]
-      f.write(','.join(row1) + '\n')
-      f.write('Paycheck Amount,' + str(PAYCHECK_AMOUNT) + '\n\n')
+      f.write(','.join(row1) + '\n\n')
 
-      # print bills and credit cards summary
-      f.write('Total Bills,=SUM(B11:B50)\n')
-      f.write('My Credit Card Balance\n')
-      f.write('Amazon Credit Card Balance (Enter full amount)\n\n')
-      f.write('Leftover from paycheck (bills + other),=B2-B4\n')
-      f.write('Leftover from paycheck (bills + cards + other),=B2-B4-B5-(B6*.5)\n\n')
+      # print summary
+      f.write('Leftover,=B4-B5\n')
+      f.write('Paycheck Amount,' + str(PAYCHECK_AMOUNT) + '\n')
+      f.write('Total Bills,=SUM(B11:B50)\n\n')
 
       # print per paycheck bills
-      f.write('Per Paycheck Bills,Cost,Notes\n')
+      f.write('Per Paycheck Bills,Cost\n')
       for bill in perPaycheckBills:
          bill.printInfo(f)
 
-      f.write('\nMonthly Bills,Cost,Due Date,Notes\n')
+      f.write('\nMonthly Bills,Cost,Due Date\n')
 
       # print monthly bills
       for bill in monthlyBills:
          bill.printInfo(f)
-
-      # other expenses this paycheck
-      f.write('\nOther Expenses This Paycheck\n')
-      f.write('Expense,Cost')
-
-
 
 
 if __name__ == '__main__':
