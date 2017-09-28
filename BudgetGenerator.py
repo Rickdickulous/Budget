@@ -156,11 +156,11 @@ def printToFile(monthlyBills, paycheckDate, nextPaycheck):
       f.write('Total Bills,=SUM(B11:B50)\n\n')
 
       # print per paycheck bills
-      f.write('Per Paycheck Bills,Cost\n')
+      f.write('Per Paycheck Bills,Cost,Notes\n')
       for bill in perPaycheckBills:
          bill.printInfo(f)
 
-      f.write('\nMonthly Bills,Cost,Due Date\n')
+      f.write('\nMonthly Bills,Cost,Due Date,Notes\n')
 
       # print monthly bills
       for bill in monthlyBills:
