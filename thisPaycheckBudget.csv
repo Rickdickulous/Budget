@@ -1,0 +1,19 @@
+Paycheck Dates:,11/22/2017,12/6/2017
+
+Leftover,=B4-B5
+Paycheck Amount,1700
+Total Bills,=SUM(B8:B50)
+
+Per Paycheck Bills,Cost,Notes
+Car Payment,138.8
+Periodic Expenses,150
+Savings,150
+Extra Student Loan Payment,137.5
+
+Monthly Bills,Cost,Due Date,Notes
+Taxes & Heat,400,12/1/2017
+(Auto) HBO,15,11/25/2017
+(Auto) Headspace,13,11/25/2017
+Nelnet,360,11/28/2017
+Verizon,85,11/28/2017
+(Auto) Amica,15,11/28/2017

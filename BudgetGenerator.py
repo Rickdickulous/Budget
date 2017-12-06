@@ -8,7 +8,7 @@ import sys
 #########################
 # ENHANCEMENTS
 # 1. Use ordered dict for bills and print them out in order of date.
-# 2.
+# 2. Make notes field for each bill and print when present
 #########################
 
 PAYCHECK_AMOUNT = 1700
@@ -71,7 +71,7 @@ class MonthlyBill(Bill):
 
 
 perPaycheckBills = [PaycheckBill(name='Car Payment', cost=138.8),
-                    PaycheckBill(name='Periodic Expenses', cost=125),
+                    PaycheckBill(name='Periodic Expenses', cost=150),
                     PaycheckBill(name='Savings', cost=150),
                     # PaycheckBill(name='Home Improvements', cost=0),
                     PaycheckBill(name='Extra Student Loan Payment', cost=137.5),
@@ -81,13 +81,13 @@ perPaycheckBills = [PaycheckBill(name='Car Payment', cost=138.8),
 
 monthlyBills = [MonthlyBill(name='Taxes & Heat', cost=400, dayOfMonthDue=1),
                 MonthlyBill(name='Home Owners Insurance', cost=30, dayOfMonthDue=10),
-                MonthlyBill(name='Comcast', cost=80, dayOfMonthDue=14),
-                MonthlyBill(name='HBO', cost=15, dayOfMonthDue=25),
-                MonthlyBill(name='Headspace', cost=13, dayOfMonthDue=25),
-                MonthlyBill(name='Spotify', cost=15, dayOfMonthDue=20),
+                MonthlyBill(name='(Auto) Comcast', cost=86, dayOfMonthDue=14),
+                MonthlyBill(name='(Auto) HBO', cost=15, dayOfMonthDue=25),
+                MonthlyBill(name='(Auto) Headspace', cost=13, dayOfMonthDue=25),
+                MonthlyBill(name='(Auto) Spotify', cost=15, dayOfMonthDue=20),
                 MonthlyBill(name='Nelnet', cost=360, dayOfMonthDue=28),
                 MonthlyBill(name='Verizon', cost=85, dayOfMonthDue=28),
-                MonthlyBill(name='Amica', cost=15, dayOfMonthDue=28),
+                MonthlyBill(name='(Auto) Amica', cost=15, dayOfMonthDue=28),
                 # MonthlyBill(name='Comcast', cost=80, dayOfMonthDue=14),
                 # MonthlyBill(name='Comcast', cost=80, dayOfMonthDue=14),
                 ]
@@ -153,7 +153,7 @@ def printToFile(monthlyBills, paycheckDate, nextPaycheck):
       # print summary
       f.write('Leftover,=B4-B5\n')
       f.write('Paycheck Amount,' + str(PAYCHECK_AMOUNT) + '\n')
-      f.write('Total Bills,=SUM(B11:B50)\n\n')
+      f.write('Total Bills,=SUM(B8:B50)\n\n')
 
       # print per paycheck bills
       f.write('Per Paycheck Bills,Cost,Notes\n')
