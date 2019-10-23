@@ -11,7 +11,7 @@ import sys
 # 2. Make notes field for each bill and print when present
 #########################
 
-PAYCHECK_AMOUNT = 1700
+PAYCHECK_AMOUNT = 1000  # Censored for privacy
 file = 'thisPaycheckBudget.csv'
 
 def main():
